@@ -10,7 +10,7 @@ import {
 
 function SignUp() {
     return (
-        <ContainerForm>
+        <ContainerForm isLogin={false}>
             <Form>
                 <Title>MyWallet</Title>
                 <Input type="text" placeholder="Nome" />

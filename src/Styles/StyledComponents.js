@@ -35,7 +35,7 @@ const Input = styled.input`
 const ModelButton = styled.button`
     margin-top: 13px;
     /* width: 326px; */
-    width: 86.9vw;
+    width: 91vw;
     height: 46px;
     background-color: #A328D6;
     border-radius: 5px;
@@ -50,7 +50,7 @@ const ModelButton = styled.button`
 `;
 const SimpleButton = styled.button`
     font-size: 15px;
-    width: 86.9vw;
+    width: 91vw;
     font-family: 'Raleway', sans-serif;
     color: #FFFFFF;
     font-weight: bold;
