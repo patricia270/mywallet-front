@@ -1,12 +1,15 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { useState } from "react";
 import GlobalStyle from "./Styles/GlobalStyle";
 import SignUp from "./Pages/SignUp";
 import SignIn from "./Pages/SignIn";
 import Registries from "./Pages/Registries";
 import NewInput from "./Pages/NewInput";
 import NewOutput from "./Pages/NewOutput";
+import UserContext from "./Contexts/UserContext";
 
 function App() {
+
   return (
     <BrowserRouter>
       <Switch>
