@@ -60,11 +60,29 @@ const SimpleButton = styled.button`
     }
 `;
 
+const Header = styled.div`
+    height: 78px;
+    padding: 0 25px 0 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+`;
+
+const SessionTitle = styled.h2`
+    font-size: 26px;
+    color: #FFFFFF;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+`;
+
+
 export {
     ContainerForm,
     Form,
     Title,
     Input,
     ModelButton,
-    SimpleButton
+    SimpleButton,
+    Header,
+    SessionTitle
 };
