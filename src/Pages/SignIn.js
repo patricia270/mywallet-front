@@ -1,5 +1,9 @@
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { postSignIn } from '../Services/Api';
+import UserContext from '../Contexts/UserContext';
+import { useContext, useState } from 'react';
+import Swal from 'sweetalert2';
 import {
     Form,
     Title,
@@ -9,17 +13,57 @@ import {
 } from '../Styles/StyledComponents';
 
 function SignIn() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { setUser } = useContext(UserContext);
+    const history = useHistory();
+
+    const body = {
+        email,
+        password,
+    };
+
+    function SendloginInfo(event) {
+        event.preventDefault();
+        postSignIn(body)
+            .then((resp) => {
+                setUser(resp.data);
+                history.push("/registries");
+            })
+            .catch(() => {                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `Seus dados não foram encontrados,
+                            verifique se digitou tudo corretamente!`,
+                })
+                
+            })
+    }
+
     return (
         <ContainerFormLogin>
-            <Form>
+            <Form onSubmit={SendloginInfo}>
                 <Title>MyWallet</Title>
-                <Input type="email" placeholder="E-mail" />
-                <Input type="password" placeholder="Senha" />
-                <ModelButton>Entrar</ModelButton>
+                <Input 
+                    type="email" 
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required                    
+                />
+                <Input 
+                    type="password" 
+                    placeholder="Senha" 
+                    minLength="8"
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <ModelButton type="submit">Entrar</ModelButton>
             </Form>
-            <Link to='/sign-up'>
-                <SimpleButton>Primeira vez? Cadastre-se!</SimpleButton>
-            </Link>
+            <SimpleButton onClick={() => history.push("/sign-up")}>
+                Primeira vez? Cadastre-se!
+            </SimpleButton>
         </ContainerFormLogin>
     );
 }

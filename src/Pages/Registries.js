@@ -2,6 +2,9 @@ import styled from "styled-components";
 import WithRegistries from "../Components/WithRegistries";
 import { Header, SessionTitle } from "../Styles/StyledComponents";
 import { IoExitOutline } from "react-icons/io5";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../Contexts/UserContext";
+import { getRegistries } from "../Services/Api";
 import {
     IoIosAddCircleOutline, 
     IoIosRemoveCircleOutline
@@ -9,11 +12,29 @@ import {
 
 
 function Registries () {
-    const registriesList = false;
+    const [registriesList, setRegistriesList] = useState([])
+    const { user } = useContext(UserContext);
+    const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+    };
+
+    useEffect(() => {
+        getRegistries(config)
+            .then((resp) => {
+                console.log(resp)
+            })
+            .catch((error) => {
+                console.error();
+            })
+    }, []);
+    
+
     return (
         <>
             <Header>
-                <SessionTitle>Olá, fulano</SessionTitle> 
+                <SessionTitle>{`Olá, ${user.username}`}</SessionTitle> 
                 <IoExitOutline color="#FFFFFF" size="37px"/>           
             </Header>
             {registriesList ? 

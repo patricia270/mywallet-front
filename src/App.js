@@ -9,9 +9,11 @@ import NewOutput from "./Pages/NewOutput";
 import UserContext from "./Contexts/UserContext";
 
 function App() {
-
+  const [user, setUser] = useState("");
+  
   return (
     <BrowserRouter>
+    <UserContext.Provider value={{user, setUser}}>
       <Switch>
         <Route path='/' exact>
           <SignIn />
@@ -30,6 +32,7 @@ function App() {
         </Route>
       </Switch>
       <GlobalStyle />
+    </UserContext.Provider>
     </BrowserRouter>
   );
 }
