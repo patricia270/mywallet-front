@@ -10,12 +10,12 @@ const Form = styled.form`
     width: 86.9vw;
     flex-direction: column;
     align-items: center;
-    margin-top: 95px;
     margin-bottom: 32px;
     text-align: center;
 `;
 
 const Title = styled.h1`
+    margin-top: 95px;
     font-size: 32px;
     color: #FFFFFF;
     font-family: 'Saira Stencil One', cursive;
