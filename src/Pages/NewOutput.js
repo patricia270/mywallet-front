@@ -8,21 +8,21 @@ import {
     ContainerNewRegister
 } from "../Styles/StyledComponents";
 
-function NewInput() {
+function NewOutput() {
     return(
         <>
             <Header>
-                <SessionTitle>Nova entrada</SessionTitle>
+                <SessionTitle>Nova saída</SessionTitle>
             </Header>
             <ContainerNewRegister>
                 <Form>
                     <Input type="number" placeholder="Valor" />
                     <Input type="text" placeholder="Descrição"/>
-                    <ModelButton>Salvar entrada</ModelButton>
+                    <ModelButton>Salvar saída</ModelButton>
                 </Form>
             </ContainerNewRegister>
         </>
     );
 }
 
-export default NewInput;
+export default NewOutput;

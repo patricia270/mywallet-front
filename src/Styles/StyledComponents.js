@@ -75,6 +75,11 @@ const SessionTitle = styled.h2`
     font-weight: bold;
 `;
 
+const ContainerNewRegister = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
 
 export {
     ContainerForm,
@@ -84,5 +89,6 @@ export {
     ModelButton,
     SimpleButton,
     Header,
-    SessionTitle
+    SessionTitle,
+    ContainerNewRegister
 };

@@ -4,6 +4,7 @@ import SignUp from "./Pages/SignUp";
 import SignIn from "./Pages/SignIn";
 import Registries from "./Pages/Registries";
 import NewInput from "./Pages/NewInput";
+import NewOutput from "./Pages/NewOutput";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
         </Route>
         <Route path='/inputs' exact>
           <NewInput />
+        </Route>
+        <Route path='/outputs' exact>
+          <NewOutput />
         </Route>
       </Switch>
       <GlobalStyle />
