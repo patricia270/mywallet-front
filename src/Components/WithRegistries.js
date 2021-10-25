@@ -1,58 +1,81 @@
 import styled from "styled-components";
-import Register from "./Register";
+import Loading from "./Loading";
+import dayjs from "dayjs";
 
-function WithRegistries () {
-    const registries = [];
-    
+function WithRegistries({registriesList}) {
+
+    if(registriesList === undefined) {
+        return(
+            <Loading />
+        );
+    }
     return (
-        <ContainerRegistries>
-            <RegistriesList>
-                {registries ?
-                    registries.map((register) => (
-                        <Register register={register} />) )
-                    : "" }
-            </RegistriesList>
-            <BoxBalance>
-                <h3>SALDO</h3>
-                <span>2849,96</span>
-            </BoxBalance>
-        </ContainerRegistries>
+        <RegistriesList>
+            {registriesList.registries ?
+                registriesList.registries.map((
+                    {date, description, register_type, value}, index) => (
+                    <ItemRegister key={index}>
+                        <BoxDateAndDescription>
+                            <Date>{dayjs(date).format('MM/YYYY')}</Date>
+                            <Description>{description}</Description>
+                        </BoxDateAndDescription>
+                        <Value register_type={register_type}>{value}</Value>
+                    </ItemRegister> )) : "" }
+        </RegistriesList>
     );
 }
 
 export default WithRegistries;
 
-const ContainerRegistries = styled.div`
-    width: 86.9vw;
-    height: 446px;
-    background-color: #FFFFFF;
-    margin: 0 auto; 
-    p {
-        font-size: 20px;
-        width: 180px;
-        color: #868686;
-        text-align: center;
-    }
-`;
 
 const RegistriesList = styled.div`
     height: 416px;
+    overflow-y: scroll;
     padding: 0 11px 0 15px;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    
 `;
 
-const BoxBalance = styled.div`
-    height: 30px;
-    padding: 0 11px 0 15px;
-    font-size: 17px;
+const ItemRegister = styled.div`
+    padding-top: 23px;
     display: flex;
     justify-content: space-between;
-    font-family: 'Raleway', sans-serif;
-    h3 {
-        color: #000000;
-        font-weight: bold;
-    }
-    span {
-        color: #03AC00;
+    :last-child {
+        margin-bottom: 20px;
     }
 `;
+
+const BoxDateAndDescription = styled.div`
+    display: flex;
+`;
+
+const Date = styled.span`
+    font-size: 16px;
+    margin-right: 10px;
+    font-family: 'Raleway', sans-serif;
+    color: #868686;
+`;
+
+const Description = styled.h3`
+    font-size: 16px;
+    margin-right: 10px;
+    font-family: 'Raleway', sans-serif;
+    color: #000000;
+    max-width: 40vw;
+    word-break: break-all;
+`;
+
+const Value = styled.span`
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+    max-width: 30vw;
+    word-break: break-all;
+    color: ${({register_type}) => (
+        register_type === 'Saída' ? 
+        '#CF3620' : 
+        '#03AC00')};
+`;
+
 

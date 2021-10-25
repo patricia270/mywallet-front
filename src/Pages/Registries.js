@@ -1,10 +1,11 @@
-import styled from "styled-components";
-import WithRegistries from "../Components/WithRegistries";
-import { Header, SessionTitle } from "../Styles/StyledComponents";
-import { IoExitOutline } from "react-icons/io5";
 import { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import UserContext from "../Contexts/UserContext";
+import styled from "styled-components";
 import { getRegistries } from "../Services/Api";
+import Loading from "../Components/Loading";
+import WithRegistries from "../Components/WithRegistries";
+import Header from "../Components/Header";
 import {
     IoIosAddCircleOutline, 
     IoIosRemoveCircleOutline
@@ -12,8 +13,11 @@ import {
 
 
 function Registries () {
-    const [registriesList, setRegistriesList] = useState([])
+    const [registriesList, setRegistriesList] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
     const { user } = useContext(UserContext);
+    const history = useHistory();
+    
     const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -23,32 +27,41 @@ function Registries () {
     useEffect(() => {
         getRegistries(config)
             .then((resp) => {
-                console.log(resp)
+                setRegistriesList(resp.data)
+                setIsLoading(false)
             })
-            .catch((error) => {
-                console.error();
+            .catch((err) => {
+                console.log("erro")
             })
     }, []);
-    
+
+    if(isLoading) {
+        return (
+            <Loading />
+        );
+    }  
+   
 
     return (
         <>
-            <Header>
-                <SessionTitle>{`Olá, ${user.username}`}</SessionTitle> 
-                <IoExitOutline color="#FFFFFF" size="37px"/>           
-            </Header>
-            {registriesList ? 
-                <WithRegistries /> :
+            <Header />
+            {registriesList.registries.length === 0 ? 
                 <BoxEmpty>
                     <p>Não há registros de entrada ou saída</p>
-                </BoxEmpty>
-            }
+                </BoxEmpty> :
+                <ContainerRegistries>
+                    <WithRegistries registriesList={registriesList}/>
+                    <BoxBalance isPositive={Number(registriesList.saldo)}>
+                        <h3>SALDO</h3>
+                        <h4>{registriesList.saldo}</h4>
+                    </BoxBalance>
+                </ContainerRegistries> }
             <BoxAddRegister>
-                <AddButton>
+                <AddButton onClick={() => history.push("/inputs")}>
                     <IconAddRegisterInput/>
                     <Span>Nova entrada</Span>
                 </AddButton>
-                <AddButton>
+                <AddButton onClick={() => history.push("/outputs")}>
                     <IconAddRegisterOutput/>
                     <Span>Nova saída</Span>
                 </AddButton>
@@ -123,5 +136,42 @@ const Span = styled.span`
     color: #FFFFFF;
     font-weight: bold;
     width: 44px;
+`;
+
+const ContainerRegistries = styled.div`
+    width: 86.9vw;
+    height: 446px;
+    background-color: #FFFFFF;
+    margin: 0 auto; 
+    p {
+        font-size: 20px;
+        width: 180px;
+        color: #868686;
+        text-align: center;
+    }
+`;
+
+const BoxBalance = styled.div`
+    background-color: "#03AC00";
+    height: 30px;
+    padding: 0 11px 0 15px;
+    font-size: 17px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Raleway', sans-serif;
+    h3 {
+        color: #000000;
+        font-weight: bold;
+    }
+    h4 {
+        max-width: 30vw;
+        overflow: hidden;
+        word-break: break-all;
+        color: ${({isPositive}) => 
+            isPositive === 0 ? "#000000" : 
+            isPositive > 0 ? "#03AC00" : 
+            "#CF3620"
+        };
+    }
 `;
 

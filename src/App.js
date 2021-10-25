@@ -9,7 +9,8 @@ import NewOutput from "./Pages/NewOutput";
 import UserContext from "./Contexts/UserContext";
 
 function App() {
-  const [user, setUser] = useState("");
+  const userData = JSON.parse(localStorage.getItem("MyWalletUserData"));
+  const [user, setUser] = useState(userData);
   
   return (
     <BrowserRouter>

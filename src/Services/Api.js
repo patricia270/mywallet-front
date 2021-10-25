@@ -7,15 +7,17 @@ function postSignUp(body) {
 }
 
 function postSignIn(body) {
-    return axios.post(`${BASE_URL}/sign-in`, body)
+    return axios.post(`${BASE_URL}/sign-in`, body);
 }
 
 function getRegistries(config) {
-    return axios.get(`${BASE_URL}/registries`, config)
+    return axios.get(`${BASE_URL}/registries`, config);
 }
+
+
 
 export {
     postSignUp,
     postSignIn,
-    getRegistries
+    getRegistries,
 }

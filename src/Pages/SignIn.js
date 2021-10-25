@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { postSignIn } from '../Services/Api';
 import UserContext from '../Contexts/UserContext';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import {
     Form,
@@ -18,6 +18,16 @@ function SignIn() {
     const { setUser } = useContext(UserContext);
     const history = useHistory();
 
+    useEffect(() => {
+        if (!!localStorage.getItem("MyWalletUserData")) {
+          history.push("/registries");
+        }    
+        return () => {
+          setEmail({});
+          setPassword({});
+        };
+      }, []);
+    
     const body = {
         email,
         password,
@@ -28,6 +38,7 @@ function SignIn() {
         postSignIn(body)
             .then((resp) => {
                 setUser(resp.data);
+                localStorage.setItem("MyWalletUserData", JSON.stringify(resp.data));
                 history.push("/registries");
             })
             .catch(() => {                

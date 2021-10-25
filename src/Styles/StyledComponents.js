@@ -60,7 +60,7 @@ const SimpleButton = styled.button`
     }
 `;
 
-const Header = styled.div`
+const HeaderDiv = styled.div`
     height: 78px;
     padding: 0 25px 0 25px;
     display: flex;
@@ -73,6 +73,13 @@ const SessionTitle = styled.h2`
     color: #FFFFFF;
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
+    max-width: 65vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    span {
+        margin-left: 3px;
+    }
 `;
 
 const ContainerNewRegister = styled.div`
@@ -88,7 +95,7 @@ export {
     Input,
     ModelButton,
     SimpleButton,
-    Header,
+    HeaderDiv,
     SessionTitle,
     ContainerNewRegister
 };
