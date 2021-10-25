@@ -53,7 +53,9 @@ function Registries () {
                     <WithRegistries registriesList={registriesList}/>
                     <BoxBalance isPositive={Number(registriesList.saldo)}>
                         <h3>SALDO</h3>
-                        <h4>{registriesList.saldo}</h4>
+                        <h4>
+                            {Number(registriesList.saldo).toFixed(2).replace(".",",")}
+                        </h4>
                     </BoxBalance>
                 </ContainerRegistries> }
             <BoxAddRegister>

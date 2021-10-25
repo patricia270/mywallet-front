@@ -18,8 +18,8 @@ function postNewInput(body, config) {
     return axios.post(`${BASE_URL}/inputs`, body, config);
 }
 
-function postNewOutput(config, body) {
-    return axios.post(`${BASE_URL}/outputs`, config, body);
+function postNewOutput(body, config) {
+    return axios.post(`${BASE_URL}/outputs`, body, config);
 }
 
 export {
