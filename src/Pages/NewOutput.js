@@ -46,9 +46,7 @@ function NewOutput() {
             <ContainerNewRegister>
                 <Form onSubmit={sendOutput}>
                     <Input 
-                        type="text" 
-                        pattern="\d*" 
-                        maxLength="10"
+                        type="number" 
                         placeholder="Valor"
                         value={value}
                         onChange={(e) => setValue(e.target.value)}

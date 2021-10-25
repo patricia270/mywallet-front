@@ -20,7 +20,7 @@ function WithRegistries({registriesList}) {
                             <Description>{description}</Description>
                         </BoxDateAndDescription>
                         <Value register_type={register_type}>
-                            {Number(value).toFixed(2).replace(".", ",")}
+                            {value.replace(".", ",")}
                         </Value>
                     </ItemRegister> )) : "" }
         </RegistriesList>

@@ -40,7 +40,13 @@ function Registries () {
             <Loading />
         );
     }  
+
+    console.log(registriesList)
    
+    let saldo = registriesList.registries.map((e) => 
+            e.register_type === "Saída" ? -e.value : +e.value)
+            .reduce((total, numero) => total + numero, 0)
+    console.log(saldo)
 
     return (
         <>
@@ -51,10 +57,10 @@ function Registries () {
                 </BoxEmpty> :
                 <ContainerRegistries>
                     <WithRegistries registriesList={registriesList}/>
-                    <BoxBalance isPositive={Number(registriesList.saldo)}>
+                    <BoxBalance isPositive={Number(saldo)}>
                         <h3>SALDO</h3>
                         <h4>
-                            {Number(registriesList.saldo).toFixed(2).replace(".",",")}
+                            {saldo.toFixed(2).replace(".", ",")}
                         </h4>
                     </BoxBalance>
                 </ContainerRegistries> }
