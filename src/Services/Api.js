@@ -22,10 +22,15 @@ function postNewOutput(body, config) {
     return axios.post(`${BASE_URL}/outputs`, body, config);
 }
 
+function signOut(config) {
+    return axios.get(`${BASE_URL}/sign-out`, config);
+}
+
 export {
     postSignUp,
     postSignIn,
     getRegistries,
     postNewInput,
-    postNewOutput
+    postNewOutput,
+    signOut
 }
