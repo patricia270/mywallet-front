@@ -1,7 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
 import UserContext from "../Contexts/UserContext";
-
 import { 
     HeaderDiv,
     Form,
@@ -17,14 +16,13 @@ function NewOutput() {
     const { user } = useContext(UserContext);
     const history = useHistory();
 
-    
     return(
         <>
             <HeaderDiv>
                 <SessionTitle>Nova saída</SessionTitle>
             </HeaderDiv>
             <ContainerNewRegister>
-                <Form >
+                <Form>
                     <Input 
                         type="text" 
                         pattern="\d*" 

@@ -14,10 +14,15 @@ function getRegistries(config) {
     return axios.get(`${BASE_URL}/registries`, config);
 }
 
+function postNewInput(body, config) {
+    return axios.post(`${BASE_URL}/inputs`, body, config);
+}
+
 
 
 export {
     postSignUp,
     postSignIn,
     getRegistries,
+    postNewInput,
 }

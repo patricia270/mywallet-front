@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
 import UserContext from "../Contexts/UserContext";
-
+import { postNewInput } from "../Services/Api";
 import { 
     HeaderDiv,
     Form,
@@ -17,7 +17,27 @@ function NewInput() {
     const { user } = useContext(UserContext);
     const history = useHistory();
     
-    
+    const body = {
+        value,
+        description,
+    };
+
+    const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+    };
+
+    function sendInput(event) {
+        event.preventDefault();
+        postNewInput(body, config)
+            .then(() => {
+                history.push("/registries");
+            })
+            .catch((err) => {                
+                console.log(err)                
+            })
+    }
 
     return(
         <>
@@ -25,12 +45,13 @@ function NewInput() {
                 <SessionTitle>Nova entrada</SessionTitle>
             </HeaderDiv>
             <ContainerNewRegister>
-                <Form >
+                <Form onSubmit={sendInput}>
                     <Input 
-                        type="number" 
+                        type="text" 
+                        pattern="\d*" 
+                        maxLength="10"
                         placeholder="Valor"
                         value={value}
-                        maxLength="10"
                         onChange={(e) => setValue(e.target.value)}
                         required  
                     />
@@ -41,7 +62,7 @@ function NewInput() {
                         onChange={(e) => setDescription(e.target.value)}
                         required  
                     />
-                    <ModelButton>Salvar entrada</ModelButton>
+                    <ModelButton type="submit">Salvar entrada</ModelButton>
                 </Form>
             </ContainerNewRegister>
         </>
