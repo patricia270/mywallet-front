@@ -1,9 +1,10 @@
 import { useHistory } from "react-router-dom";
-import UserContext from "../Contexts/UserContext";
-import { signOut } from "../Services/Api";
-import { HeaderDiv, SessionTitle } from "../Styles/StyledComponents";
 import { IoExitOutline } from "react-icons/io5";
 import { useContext } from "react";
+import UserContext from "../Contexts/UserContext";
+import { signOut } from "../Services/Api";
+import errors from "../Services/Errors";
+import { HeaderDiv, SessionTitle } from "../Styles/StyledComponents";
 
 function Header() {
     const { user } = useContext(UserContext);
@@ -17,13 +18,12 @@ function Header() {
     
     function logout() {
         signOut(config)
-            .then((resp) => {
-                console.log(resp)
+            .then(() => {
                 localStorage.removeItem("MyWalletUserData");
                 history.push("/");
             })
             .catch((error) => {
-                console.log(error)
+                errors(error);
             })
     }
 

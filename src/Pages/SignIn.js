@@ -1,9 +1,9 @@
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-import { postSignIn } from '../Services/Api';
-import UserContext from '../Contexts/UserContext';
 import { useContext, useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
+import styled from 'styled-components';
+import UserContext from '../Contexts/UserContext';
+import { postSignIn } from '../Services/Api';
+import errors from '../Services/Errors';
 import {
     Form,
     Title,
@@ -42,14 +42,7 @@ function SignIn() {
                 history.push("/registries");
             })
             .catch((error) => { 
-                console.log(error.response.status)             
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: `Seus dados não foram encontrados,
-                            verifique se digitou tudo corretamente!`,
-                })
-                
+                errors(error);                
             })
     }
 

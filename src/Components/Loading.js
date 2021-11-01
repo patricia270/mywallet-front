@@ -10,7 +10,7 @@ function Loading() {
                 color="#A328D6"
                 height={50}
                 width={50}
-                timeout={10000} //3 secs
+                timeout={10000} 
             />
         </Container>
     );

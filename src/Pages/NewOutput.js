@@ -2,6 +2,7 @@ import { useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
 import UserContext from "../Contexts/UserContext";
 import { postNewOutput } from "../Services/Api";
+import errors from "../Services/Errors";
 import { 
     HeaderDiv,
     Form,
@@ -39,8 +40,8 @@ function NewOutput() {
             .then(() => {
                 history.push("/registries");
             })
-            .catch((err) => {                
-                console.log(err)                
+            .catch((error) => {                
+                errors(error);               
             })
     }
     

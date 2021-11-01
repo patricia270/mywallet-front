@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { postSignUp } from '../Services/Api';
 import Swal from 'sweetalert2'
+import { postSignUp } from '../Services/Api';
+import errors from '../Services/Errors';
 import {
     ContainerForm,
     Form,
@@ -31,7 +32,7 @@ function SignUp() {
                 history.push("/");
             })
             .catch((error) => {
-                console.log(error)
+                errors(error);
             })
         } else {
             Swal.fire({

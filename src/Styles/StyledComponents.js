@@ -91,6 +91,9 @@ const SessionTitle = styled.h2`
     color: #FFFFFF;
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
+    height: 78px;
+    display: flex;
+    align-items: center;
     max-width: 65vw;
     white-space: nowrap;
     overflow: hidden;

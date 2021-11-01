@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import UserContext from "../Contexts/UserContext";
 import styled from "styled-components";
 import { getRegistries } from "../Services/Api";
+import errors from "../Services/Errors";
+import UserContext from "../Contexts/UserContext";
 import Loading from "../Components/Loading";
 import WithRegistries from "../Components/WithRegistries";
 import Header from "../Components/Header";
@@ -34,8 +35,8 @@ function Registries () {
                 setRegistriesList(resp.data)
                 setIsLoading(false)
             })
-            .catch((err) => {
-                console.log("erro")
+            .catch((error) => {
+                errors(error);
             })
     }, []);
 
