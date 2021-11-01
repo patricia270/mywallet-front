@@ -17,19 +17,24 @@ function NewInput() {
     const { user } = useContext(UserContext);
     const history = useHistory();
     
-    const body = {
-        value,
-        description,
-    };
-
-    const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-    };
+    if (!localStorage.getItem("MyWalletUserData")) {
+        history.push("/")
+    }
 
     function sendInput(event) {
         event.preventDefault();
+        
+        const body = {
+            value,
+            description,
+        };
+    
+        const config = {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+        };
+    
         postNewInput(body, config)
             .then(() => {
                 history.push("/registries");

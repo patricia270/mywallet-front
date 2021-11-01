@@ -31,13 +31,12 @@ export default WithRegistries;
 
 
 const RegistriesList = styled.div`
-    height: 416px;
+    height: 62.36vh;
     overflow-y: scroll;
     padding: 0 11px 0 15px;
     ::-webkit-scrollbar {
         display: none;
-    }
-    
+    }    
 `;
 
 const ItemRegister = styled.div`

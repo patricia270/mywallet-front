@@ -41,7 +41,8 @@ function SignIn() {
                 localStorage.setItem("MyWalletUserData", JSON.stringify(resp.data));
                 history.push("/registries");
             })
-            .catch(() => {                
+            .catch((error) => { 
+                console.log(error.response.status)             
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',

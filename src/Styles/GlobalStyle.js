@@ -36,6 +36,8 @@ const GlobalStyle = createGlobalStyle`
     body {
         line-height: 1;
         background-color: #8C11BE;
+        height: 100vw;
+        overflow-y: hidden;
     }
     ol, ul {
         list-style: none;

@@ -16,15 +16,19 @@ function Registries () {
     const [registriesList, setRegistriesList] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const { user } = useContext(UserContext);
-    const history = useHistory();
-    
-    const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-    };
+    const history = useHistory();    
 
     useEffect(() => {
+        if (!localStorage.getItem("MyWalletUserData")) {
+            return history.push("/")
+        }
+
+        const config = {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+        };
+        
         getRegistries(config)
             .then((resp) => {
                 setRegistriesList(resp.data)
@@ -39,14 +43,11 @@ function Registries () {
         return (
             <Loading />
         );
-    }  
-
-    console.log(registriesList)
+    } 
    
     let saldo = registriesList.registries.map((e) => 
             e.register_type === "Saída" ? -e.value : +e.value)
             .reduce((total, numero) => total + numero, 0)
-    console.log(saldo)
 
     return (
         <>
@@ -86,8 +87,8 @@ const BoxEmpty = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 86.9vw;
-    height: 446px;
+    width: 600px;
+    height: 66.86vh;
     background-color: #FFFFFF;
     margin: 0 auto; 
     p {
@@ -96,6 +97,9 @@ const BoxEmpty = styled.div`
         color: #868686;
         text-align: center;
         font-family: 'Raleway', sans-serif;
+    }
+    @media (max-width: 700px) {
+        width: 86.9vw;
     }
     
 `;
@@ -106,12 +110,13 @@ const AddButton = styled.div`
     background-color: #A328D6;
     position: relative;
     padding: 0;
+    margin: 0 5px 0 5px;
 `;
 
 const BoxAddRegister = styled.div`
     display: flex;
-    justify-content: space-between;
-    padding: 13px 24px 0 24px;
+    justify-content: center;
+    padding: 13px 15px 10px 15px;
 `;
 
 const IconAddRegisterInput = styled(IoIosAddCircleOutline)`
@@ -122,7 +127,6 @@ const IconAddRegisterInput = styled(IoIosAddCircleOutline)`
     top: 10px;
     left: 10px;
     stroke-width: 10px;
-
 `;
 
 const IconAddRegisterOutput = styled(IoIosRemoveCircleOutline)`
@@ -151,11 +155,16 @@ const ContainerRegistries = styled.div`
     height: 446px;
     background-color: #FFFFFF;
     margin: 0 auto; 
+    width: 600px;
+    height: 66.86vh;
     p {
         font-size: 20px;
         width: 180px;
         color: #868686;
         text-align: center;
+    }
+    @media (max-width: 700px) {
+        width: 86.9vw;
     }
 `;
 

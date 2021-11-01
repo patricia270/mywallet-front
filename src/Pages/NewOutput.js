@@ -17,19 +17,24 @@ function NewOutput() {
     const { user } = useContext(UserContext);
     const history = useHistory();
 
-    const body = {
-        value,
-        description,
-    };
-
-    const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-    };
+    if (!localStorage.getItem("MyWalletUserData")) {
+        history.push("/")
+    }
 
     function sendOutput(event) {
         event.preventDefault();
+
+        const body = {
+            value,
+            description,
+        };
+    
+        const config = {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+        };
+        
         postNewOutput(body, config)
             .then(() => {
                 history.push("/registries");
@@ -38,6 +43,7 @@ function NewOutput() {
                 console.log(err)                
             })
     }
+    
     return(
         <>
             <HeaderDiv>
