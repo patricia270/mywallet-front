@@ -10,7 +10,7 @@ import {
     Input,
     ModelButton,
     SimpleButton
-} from '../Styles/StyledComponents';
+} from '../Styles/genericStyledComponents';
 
 function SignUp() {
     const [name, setName] = useState("");
@@ -21,11 +21,13 @@ function SignUp() {
 
     function sendSignUp(event) {
         event.preventDefault();
+
         const body = {
             email,
             name,
-            password,
+            password
         };
+        
         if (password === confirmPassword) {
             postSignUp(body)
             .then(() => {

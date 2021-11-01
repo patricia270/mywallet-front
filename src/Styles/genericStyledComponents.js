@@ -5,6 +5,7 @@ const ContainerForm = styled.div`
     flex-direction: column;
     align-items: center;
 `;
+
 const Form = styled.form`
     display: flex;
     flex-direction: column;
@@ -40,7 +41,6 @@ const Input = styled.input`
 
 const ModelButton = styled.button`
     margin-top: 13px;
-    /* width: 326px; */
     height: 46px;
     background-color: #A328D6;
     border-radius: 5px;
@@ -57,6 +57,7 @@ const ModelButton = styled.button`
         width: 86.9vw;
     }
 `;
+
 const SimpleButton = styled.button`
     font-size: 15px;
     width: 91vw;

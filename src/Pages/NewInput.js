@@ -10,7 +10,7 @@ import {
     Input,
     ModelButton,
     ContainerNewRegister
-} from "../Styles/StyledComponents";
+} from "../Styles/genericStyledComponents";
 
 function NewInput() {
     const [value, setValue] = useState("");
@@ -19,7 +19,7 @@ function NewInput() {
     const history = useHistory();
     
     if (!localStorage.getItem("MyWalletUserData")) {
-        history.push("/")
+        history.push("/");
     }
 
     function sendInput(event) {
@@ -27,7 +27,7 @@ function NewInput() {
         
         const body = {
             value,
-            description,
+            description
         };
     
         const config = {

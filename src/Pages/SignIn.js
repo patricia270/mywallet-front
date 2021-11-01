@@ -1,16 +1,16 @@
 import { useHistory } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
-import styled from 'styled-components';
 import UserContext from '../Contexts/UserContext';
 import { postSignIn } from '../Services/Api';
 import errors from '../Services/Errors';
+import { ContainerFormLogin } from "../Styles/styleSignIn";
 import {
     Form,
     Title,
     Input,
     ModelButton,
     SimpleButton
-} from '../Styles/StyledComponents';
+} from '../Styles/genericStyledComponents';
 
 function SignIn() {
     const [email, setEmail] = useState("");
@@ -30,7 +30,7 @@ function SignIn() {
     
     const body = {
         email,
-        password,
+        password
     };
 
     function SendloginInfo(event) {
@@ -72,12 +72,5 @@ function SignIn() {
         </ContainerFormLogin>
     );
 }
-
-const ContainerFormLogin = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 64px;
-`;
 
 export default SignIn;

@@ -1,6 +1,5 @@
 import Loader from "react-loader-spinner";
-import styled from "styled-components";
-
+import { Container } from "../Styles/styleLoading";
 
 function Loading() {
     return(
@@ -17,15 +16,3 @@ function Loading() {
 }
 
 export default Loading;
-
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.9);
-    position: fixed;
-    z-index: 300;
-    top: 0px;
-`;

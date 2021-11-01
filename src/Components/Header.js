@@ -4,7 +4,7 @@ import { useContext } from "react";
 import UserContext from "../Contexts/UserContext";
 import { signOut } from "../Services/Api";
 import errors from "../Services/Errors";
-import { HeaderDiv, SessionTitle } from "../Styles/StyledComponents";
+import { HeaderDiv, SessionTitle } from "../Styles/genericStyledComponents";
 
 function Header() {
     const { user } = useContext(UserContext);
