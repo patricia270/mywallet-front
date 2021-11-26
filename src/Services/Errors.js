@@ -1,4 +1,4 @@
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 function errors(error) {
     if (error.response.status === 400) {

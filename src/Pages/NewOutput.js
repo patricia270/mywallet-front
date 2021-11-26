@@ -1,34 +1,34 @@
-import { useHistory } from "react-router-dom";
-import { useState, useContext } from "react";
-import UserContext from "../Contexts/UserContext";
-import { postNewOutput } from "../Services/Api";
-import errors from "../Services/Errors";
+import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import { Formik, ErrorMessage } from 'formik';
+import { inputAndOutputSchema } from '../Schemas/schemas';
+import UserContext from '../Contexts/UserContext';
+import { postNewOutput } from '../Services/Api';
+import errors from '../Services/Errors';
+import { GoAlert } from 'react-icons/go';
 import { 
     HeaderDiv,
-    Form,
+    FormComponent,
     SessionTitle,
     Input,
     ModelButton,
-    ContainerNewRegister
-} from "../Styles/genericStyledComponents";
+    ContainerNewRegister,
+    DivMessage,
+} from '../Styles/genericStyledComponents';
 
 function NewOutput() {
-    const [value, setValue] = useState("");
-    const [description, setDescription] = useState("");
     const { user } = useContext(UserContext);
     const history = useHistory();
-
-    if (!localStorage.getItem("MyWalletUserData")) {
-        history.push("/");
+    const initialValues = {
+        value: '',
+        description: '',
     }
 
-    function sendOutput(event) {
-        event.preventDefault();
+    if (!localStorage.getItem('MyWalletUserData')) {
+        history.push('/');
+    }
 
-        const body = {
-            value,
-            description
-        };
+    function sendOutput(values) {
     
         const config = {
             headers: {
@@ -36,9 +36,9 @@ function NewOutput() {
             },
         };
         
-        postNewOutput(body, config)
+        postNewOutput(values, config)
             .then(() => {
-                history.push("/registries");
+                history.push('/registries');
             })
             .catch((error) => {                
                 errors(error);               
@@ -51,23 +51,39 @@ function NewOutput() {
                 <SessionTitle>Nova saída</SessionTitle>
             </HeaderDiv>
             <ContainerNewRegister>
-                <Form onSubmit={sendOutput}>
-                    <Input 
-                        type="number" 
-                        placeholder="Valor"
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                        required  
-                    />
-                    <Input 
-                        type="text" 
-                        placeholder="Descrição"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required  
-                    />
-                    <ModelButton type="submit">Salvar saída</ModelButton>
-                </Form>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={inputAndOutputSchema}
+                    onSubmit={sendOutput}
+                >
+                    {() => (
+                        <FormComponent>
+                            <Input 
+                                type='number' 
+                                name='value'
+                                placeholder='Valor'
+                            />
+                            <ErrorMessage name='value' render={msg => ( 
+                                <DivMessage>
+                                    <GoAlert color='#FFFF00' />
+                                    <span>{msg}</span>
+                                </DivMessage>
+                            )} />
+                            <Input 
+                                type='text' 
+                                name='description'
+                                placeholder='Descrição'
+                            />
+                            <ErrorMessage name='description' render={msg => ( 
+                                <DivMessage>
+                                    <GoAlert color='#FFFF00' />
+                                    <span>{msg}</span>
+                                </DivMessage>
+                            )} />
+                            <ModelButton type='submit'>Salvar saída</ModelButton>
+                        </FormComponent>
+                    )}
+                </Formik>
             </ContainerNewRegister>
         </>
     );

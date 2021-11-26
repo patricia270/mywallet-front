@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URL = "https://mywallet-back1.herokuapp.com";
+const BASE_URL = 'http://localhost:4000';
 
 function postSignUp(body) {
     return axios.post(`${BASE_URL}/sign-up`, body);

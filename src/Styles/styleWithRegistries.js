@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const RegistriesList = styled.div`
     height: 62.36vh;
