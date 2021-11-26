@@ -1,5 +1,5 @@
-import Loading from "./Loading";
-import dayjs from "dayjs";
+import Loading from './Loading';
+import dayjs from 'dayjs';
 import {
     RegistriesList,
     ItemRegister,
@@ -7,7 +7,7 @@ import {
     Date,
     Description,
     Value
-} from "../Styles/styleWithRegistries";
+} from '../Styles/styleWithRegistries';
 
 function WithRegistries({registriesList}) {
     if(registriesList === undefined) {
@@ -27,9 +27,9 @@ function WithRegistries({registriesList}) {
                             <Description>{description}</Description>
                         </BoxDateAndDescription>
                         <Value register_type={register_type}>
-                            {value.replace(".", ",")}
+                            {value.replace('.', ',')}
                         </Value>
-                    </ItemRegister> )) : "" }
+                    </ItemRegister> )) : '' }
         </RegistriesList>
     );
 }

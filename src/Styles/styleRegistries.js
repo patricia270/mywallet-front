@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import {
     IoIosAddCircleOutline, 
     IoIosRemoveCircleOutline
-} from "react-icons/io";
+} from 'react-icons/io';
 
 const BoxEmpty = styled.div`
     display: flex;
@@ -31,6 +31,16 @@ const AddButton = styled.div`
     position: relative;
     padding: 0;
     margin: 0 5px 0 5px;
+    @media (max-height: 620px) {
+        height: 14.24vh;
+        span {
+            font-size: 13px;
+        }
+        svg {
+            height: 20px;
+            width: 20px
+        }
+    }
 `;
 
 const BoxAddRegister = styled.div`
@@ -86,10 +96,19 @@ const ContainerRegistries = styled.div`
     @media (max-width: 700px) {
         width: 86.9vw;
     }
+    @media (max-height: 620px) {
+        span, h3 {
+            font-size: 13px;
+        }
+        svg {
+            height: 20px;
+            width: 20px
+        }
+    }
 `;
 
 const BoxBalance = styled.div`
-    background-color: "#03AC00";
+    background-color: '#03AC00';
     height: 30px;
     padding: 0 11px 0 15px;
     font-size: 17px;
@@ -102,13 +121,13 @@ const BoxBalance = styled.div`
         font-weight: bold;
     }
     h4 {
-        max-width: 30vw;
+        max-width: 40vw;
         overflow: hidden;
         word-break: break-all;
         color: ${({isPositive}) => 
-            isPositive === 0 ? "#000000" : 
-            isPositive > 0 ? "#03AC00" : 
-            "#CF3620"
+            isPositive === 0 ? '#000000' : 
+            isPositive > 0 ? '#03AC00' : 
+            '#CF3620'
         };
     }
 `;

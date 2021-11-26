@@ -1,37 +1,41 @@
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Swal from 'sweetalert2'
+import { Formik, ErrorMessage } from 'formik';
+import Swal from 'sweetalert2';
+import { signUpSchema } from '../Schemas/schemas';
 import { postSignUp } from '../Services/Api';
 import errors from '../Services/Errors';
+import { GoAlert } from 'react-icons/go';
 import {
     ContainerForm,
-    Form,
+    FormComponent,
     Title,
     Input,
     ModelButton,
-    SimpleButton
+    SimpleButton,
+    DivMessage,
 } from '../Styles/genericStyledComponents';
 
 function SignUp() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const history = useHistory();
+    const initialValues = {
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+    }
 
-    function sendSignUp(event) {
-        event.preventDefault();
-
-        const body = {
+    function sendSignUp(values) {
+        const {
             email,
             name,
-            password
-        };
+            password,
+            confirmPassword,
+        } = values;
         
         if (password === confirmPassword) {
-            postSignUp(body)
+            postSignUp({ email, name, password})
             .then(() => {
-                history.push("/");
+                history.push('/');
             })
             .catch((error) => {
                 errors(error);
@@ -46,45 +50,67 @@ function SignUp() {
     }
 
     return (
-        <ContainerForm isLogin={false}>
-            <Form onSubmit={sendSignUp}>
-                <Title>MyWallet</Title>
-                <Input 
-                    type="text" 
-                    placeholder="Nome" 
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
-                <Input 
-                    type="email" 
-                    placeholder="E-mail" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <Input 
-                    type="password" 
-                    placeholder="Senha" 
-                    value={password}
-                    minLength="8"
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <Input 
-                    type="password" 
-                    placeholder="Confirme a senha"
-                    value={confirmPassword}
-                    minLength="8"
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required                
-                />
-                <ModelButton type="submit">Cadastrar</ModelButton>
-            </Form>
-            <SimpleButton onClick={() => history.push("/")}>
-                Já tem uma conta? Entre agora!
-            </SimpleButton>
-        </ContainerForm>
+        <Formik
+            initialValues={initialValues}
+            validationSchema={signUpSchema}
+            onSubmit={sendSignUp}
+        >
+            {() => (
+                <ContainerForm>
+                    <FormComponent >
+                        <Title>MyWallet</Title>
+                        <Input 
+                            type='text' 
+                            name='name'
+                            placeholder='Nome' 
+                        />
+                        <ErrorMessage name='name' render={msg => ( 
+                            <DivMessage>
+                                <GoAlert color='#FFFF00' />
+                                <span>{msg}</span>
+                            </DivMessage>
+                        )} />
+                        <Input 
+                            type='email' 
+                            name='email'
+                            placeholder='E-mail' 
+                        />
+                        <ErrorMessage name='email' render={msg => ( 
+                            <DivMessage>
+                                <GoAlert color='#FFFF00' />
+                                <span>{msg}</span>
+                            </DivMessage>
+                        )} />
+                        <Input 
+                            type='password' 
+                            name='password'
+                            placeholder='Senha' 
+                        />
+                        <ErrorMessage name='password' render={msg => ( 
+                            <DivMessage>
+                                <GoAlert color='#FFFF00' />
+                                <span>{msg}</span>
+                            </DivMessage>
+                        )} />
+                        <Input 
+                            type='password' 
+                            name='confirmPassword'
+                            placeholder='Confirme a senha'               
+                        />
+                        <ErrorMessage name='confirmPassword' render={msg => ( 
+                            <DivMessage>
+                                <GoAlert color='#FFFF00' />
+                                <span>{msg}</span>
+                            </DivMessage>
+                        )} />
+                        <ModelButton type='submit'>Cadastrar</ModelButton> 
+                    </FormComponent>
+                    <SimpleButton onClick={() => history.push('/')}>
+                        Já tem uma conta? Entre agora!
+                    </SimpleButton>
+                </ContainerForm>
+            )}
+        </Formik>
     );
 }
 

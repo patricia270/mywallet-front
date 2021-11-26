@@ -1,12 +1,26 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { Form, Field } from 'formik';
 
 const ContainerForm = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: ${({ isLogin }) => isLogin ? '64px' : '0'};
 `;
 
-const Form = styled.form`
+const DivMessage = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    span {
+        color: #FFFF00;
+        align-self: start;
+        margin: 5px 0 0 5px;
+        text-align: start;
+    }
+`;
+
+const FormComponent = styled(Form)`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,9 +38,12 @@ const Title = styled.h1`
     color: #FFFFFF;
     font-family: 'Saira Stencil One', cursive;
     margin-bottom: 20px;
+    @media (max-height: 600px) {
+        margin-top: 50px;
+    }
 `;
 
-const Input = styled.input`
+const Input = styled(Field)`
     margin-top: 13px;
     height: 58px;
     color: #000000;
@@ -36,6 +53,9 @@ const Input = styled.input`
     width: 600px;
     @media (max-width: 700px) {
         width: 86.9vw;
+    }
+    @media (max-height: 580px) {
+        height: 40px;
     }
 `;
 
@@ -85,6 +105,15 @@ const HeaderDiv = styled.div`
         padding: 0 24px 0 24px;
         width: 100vw;
     }
+    @media (max-height: 620px) {
+        h2, span {
+            font-size: 23px;
+        }
+        svg {
+            height: 35px;
+            width: 35px
+        }
+    }
 `;
 
 const SessionTitle = styled.h2`
@@ -112,12 +141,13 @@ const ContainerNewRegister = styled.div`
 
 export {
     ContainerForm,
-    Form,
+    FormComponent,
     Title,
     Input,
     ModelButton,
     SimpleButton,
     HeaderDiv,
     SessionTitle,
-    ContainerNewRegister
+    ContainerNewRegister,
+    DivMessage,
 };

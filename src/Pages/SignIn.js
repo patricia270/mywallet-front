@@ -1,11 +1,15 @@
 import { useHistory } from 'react-router-dom';
-import { useContext, useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { Formik, ErrorMessage } from 'formik';
 import UserContext from '../Contexts/UserContext';
+import { signInSchema } from '../Schemas/schemas';
 import { postSignIn } from '../Services/Api';
 import errors from '../Services/Errors';
-import { ContainerFormLogin } from "../Styles/styleSignIn";
+import { DivMessage } from '../Styles/genericStyledComponents';
+import { GoAlert } from 'react-icons/go';
 import {
-    Form,
+    ContainerForm,
+    FormComponent,
     Title,
     Input,
     ModelButton,
@@ -13,33 +17,23 @@ import {
 } from '../Styles/genericStyledComponents';
 
 function SignIn() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const { setUser } = useContext(UserContext);
     const history = useHistory();
-
-    useEffect(() => {
-        if (!!localStorage.getItem("MyWalletUserData")) {
-          history.push("/registries");
-        }    
-        return () => {
-          setEmail({});
-          setPassword({});
-        };
-      }, []);
-    
-    const body = {
-        email,
-        password
+    const initialValues = {
+        email: '',
+        password: '',
     };
 
-    function SendloginInfo(event) {
-        event.preventDefault();
-        postSignIn(body)
+    if (localStorage.getItem('MyWalletUserData')) {
+        history.push('/registries');
+    }
+
+    function SendloginInfo(values) {
+        postSignIn(values)
             .then((resp) => {
                 setUser(resp.data);
-                localStorage.setItem("MyWalletUserData", JSON.stringify(resp.data));
-                history.push("/registries");
+                localStorage.setItem('MyWalletUserData', JSON.stringify(resp.data));
+                history.push('/registries');
             })
             .catch((error) => { 
                 errors(error);                
@@ -47,29 +41,45 @@ function SignIn() {
     }
 
     return (
-        <ContainerFormLogin>
-            <Form onSubmit={SendloginInfo}>
-                <Title>MyWallet</Title>
-                <Input 
-                    type="email" 
-                    placeholder="E-mail"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required                    
-                />
-                <Input 
-                    type="password" 
-                    placeholder="Senha" 
-                    minLength="8"
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <ModelButton type="submit">Entrar</ModelButton>
-            </Form>
-            <SimpleButton onClick={() => history.push("/sign-up")}>
-                Primeira vez? Cadastre-se!
-            </SimpleButton>
-        </ContainerFormLogin>
+        <Formik 
+            initialValues={initialValues}
+            validationSchema={signInSchema}
+            onSubmit={SendloginInfo}
+        >
+            {() => (
+                <ContainerForm isLogin>
+                    <FormComponent>
+                        <Title>MyWallet</Title>
+                        <Input 
+                            type='email' 
+                            name='email'
+                            placeholder='E-mail'                   
+                        />
+                        <ErrorMessage name='email' render={msg => ( 
+                            <DivMessage>
+                                <GoAlert color='#FFFF00' />
+                                <span>{msg}</span>
+                            </DivMessage>
+                        )} />
+                        <Input 
+                            type='password' 
+                            name='password'
+                            placeholder='Senha' 
+                        />
+                        <ErrorMessage name='password' render={msg => (
+                            <DivMessage>
+                                <GoAlert color='#FFFF00' />
+                                <span>{msg}</span>
+                            </DivMessage>
+                        )} />
+                        <ModelButton type='submit'>Entrar</ModelButton>
+                    </FormComponent>
+                    <SimpleButton onClick={() => history.push('/sign-up')}>
+                        Primeira vez? Cadastre-se!
+                    </SimpleButton>
+                </ContainerForm>
+            )}
+        </Formik>
     );
 }
 
