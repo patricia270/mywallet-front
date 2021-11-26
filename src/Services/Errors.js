@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 
 function errors(error) {
-    if (error.response.status === 400) {
+    if (error.response.status === 401) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -15,13 +15,6 @@ function errors(error) {
             icon: 'error',
             title: 'Oops...',
             text: `Este email já foi cadastrado!`,
-        })
-    }
-    if (error.response.status === 500) {
-        Swal.fire({
-            icon: 'error',
-            title: '500',
-            text: `Internal Server Error.`,
         })
     }
 }

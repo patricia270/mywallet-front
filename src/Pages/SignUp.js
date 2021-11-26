@@ -55,7 +55,7 @@ function SignUp() {
             validationSchema={signUpSchema}
             onSubmit={sendSignUp}
         >
-            {({ errors, touched }) => (
+            {() => (
                 <ContainerForm>
                     <FormComponent >
                         <Title>MyWallet</Title>

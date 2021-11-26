@@ -121,7 +121,7 @@ const BoxBalance = styled.div`
         font-weight: bold;
     }
     h4 {
-        max-width: 30vw;
+        max-width: 40vw;
         overflow: hidden;
         word-break: break-all;
         color: ${({isPositive}) => 
